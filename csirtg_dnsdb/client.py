@@ -3,15 +3,15 @@
 import os
 from . import VERSION
 import logging
-
-logger = logging.getLogger(__name__)
-
+from argparse import ArgumentParser, RawDescriptionHelpFormatter
+import textwrap
+import requests
 try:
     import ujson as json
 except ImportError:
     import json
 
-import requests
+logger = logging.getLogger(__name__)
 
 REMOTE = os.environ.get('FARSIGHT_REMOTE', 'https://api.dnsdb.info')
 TOKEN = os.environ.get('FARSIGHT_TOKEN')
@@ -54,8 +54,7 @@ class Client(object):
 
 
 def main():
-    from argparse import ArgumentParser, RawDescriptionHelpFormatter
-    import textwrap
+
     p = ArgumentParser(
         description=textwrap.dedent('''\
             example usage:
