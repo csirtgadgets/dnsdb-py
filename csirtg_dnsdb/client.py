@@ -1,12 +1,7 @@
 #!/usr/bin/env python
 
 import os
-import sys
-
 from . import VERSION
-
-from pprint import pprint
-
 import logging
 
 logger = logging.getLogger(__name__)
