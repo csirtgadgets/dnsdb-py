@@ -44,7 +44,6 @@ setup(
     install_requires=[
         'requests>=2.6.0',
         'pytest>=2.8.0',
-        'arrow>=0.10.0',
         'ujson>=1.35',
     ],
     scripts=[],
