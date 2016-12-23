@@ -6,6 +6,7 @@ import logging
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 import textwrap
 import requests
+from .exceptions import QuotaLimit
 try:
     import ujson as json
 except ImportError:
@@ -51,6 +52,11 @@ class Client(object):
                     continue
 
                 yield (json.loads(line.decode('utf-8')))
+
+        logger.error(r.status_code)
+
+        if r.status_code == 429:
+            raise QuotaLimit('API quota reached..')
 
 
 def main():

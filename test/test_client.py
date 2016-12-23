@@ -2,6 +2,7 @@
 import pytest
 import os
 from csirtg_dnsdb.client import Client
+from csirtg_dnsdb.exceptions import QuotaLimit
 
 DISABLE_TESTS = True
 if os.environ.get('FARSIGHT_TOKEN'):
@@ -16,10 +17,16 @@ def test_client():
 def test_client_live():
     c = Client()
 
-    r = c.search('172.217.6.206')
-    assert len(list(r)) > 0
+    try:
+        r = c.search('172.217.6.206')
+        assert len(list(r)) > 0
+    except QuotaLimit:
+        pass
 
-    r = c.search('google.com')
-    assert len(list(r)) > 0
+    try:
+        r = c.search('google.com')
+        assert len(list(r)) > 0
+    except QuotaLimit:
+        pass
 
 
