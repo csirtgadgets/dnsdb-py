@@ -1,21 +1,29 @@
 dist: trusty
 language: python
 cache:
-    - pip
-    - apt
+  - pip
+  - apt
 
 python:
-    - 2.7
-    - 3.4
-    - 3.5
-
+  - 2.7
+  - 3.4
+  - 3.5
 
 script:
   - python setup.py install sdist bdist bdist_wheel
   - python setup.py test
 
-
 notifications:
-    email:
-        on_success: never
-        on_failure: never
+  email:
+    on_success: never
+    on_failure: never
+
+deploy:
+  provider: pypi
+  user: wesyoung
+  password:
+    secure: hu0HDvJCWS2LOAOigt1Mqod8IocnjttorM5Djf5UZr3qcH3BHu9jX4braXe9tdSATpGyO0kciA3iFpI/8cK50b6On+K/WtsCz/fxnPaj1gAJABNyy7tSMr7UCoOZz3LrwvROFav3xVZw8dUyIckKL9/Fwb6C3jBLXKLyzEC45ClL4vboGE0JUzwcQnKHY+bqoIv+ktI/iOilkYQ8+ZaEvuXqHndLuXWGv4E+MNlVcI+D5xS00iDUZcbFBs/3kgb48qt1GRMqKeyuiXrHica36HxcEX8bnRgmDg09VhC3HQBkmlIy1XCkNF1j+f4L4AQ9L0s5z4w/JBE5rXHbMt9brXbMUeeQz4KxXypnFW6jkQ0hZqgDQmAx2BBSj276FYXT70Qm94hiR9RUwBmoYDCI0kQyHt2ZnXajIeHkoPEj7wKk+2gY69P3axqo8Oy5vuvhcXvfjnTQ9x9qsESstqm2yeEQNQhuja734BMMgzCTrHK1j8/6c3E0LnYT4Y6IrdmaDl6u+sZQbuxsUSL8kAdavB6PBfd/JZ4rGGtzGtJdI3I7uGvdNwTX1GrD949kuD6PFuQicgHZqfgOrG04KaVHjHJBi7sroutR9mouRwbUaAP8J4kJkSa6DTCTHceCMRkSGTWxPSjVOiKvne1x9hHRD792aSoTxXwSONl3ZwgbeSI=
+  on:
+    branch: master
+    tags: true
+    condition: $TRAVIS_PYTHON_VERSION = "3.5"
