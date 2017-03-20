@@ -11,6 +11,7 @@ try:
     import ujson as json
 except ImportError:
     import json
+import socket
 
 logger = logging.getLogger(__name__)
 
@@ -38,10 +39,12 @@ class Client(object):
 
         path = '/rdata/ip'
         try:
-            import socket
             socket.inet_aton(i)
         except:
-            path = '/rrset/name'
+            if '/' in i:
+                i = i.replace('/', ',')
+            else:
+                path = '/rrset/name'
 
         path = '{}/lookup{}/{}'.format(self.remote, path, i)
         r = self.session.get(path, params=params, stream=True)
