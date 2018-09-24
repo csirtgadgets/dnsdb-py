@@ -56,8 +56,6 @@ class Client(object):
 
                 yield (json.loads(line.decode('utf-8')))
 
-        logger.error(r.status_code)
-
         if r.status_code == 429:
             raise QuotaLimit('API quota reached..')
 
